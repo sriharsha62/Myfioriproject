@@ -1,6 +1,6 @@
 <mvc:View controllerName="fioriapp.controller.Worklist" class="sapUiSizeCompact" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" >
-	<Page title="Maintain Employee records" >
+	<Page title="Maintain Employee Records" >
 		<content>
 			<form:SimpleForm editable="true" title="Create New Employee Record">
 				<core:Title/>
