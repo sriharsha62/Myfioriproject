@@ -1,0 +1,89 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZEMPLOYEE_DETAILS_SRV" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="File" m:HasStream="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="EmpId"/>
+                    <PropertyRef Name="DocId"/>
+                </Key>
+                <Property Name="EmpId" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="INT4" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DocId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Character field, length 32" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Filename" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Char255" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Sydate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Sytime" Type="Edm.Time" Nullable="false" Precision="0" sap:unicode="false" sap:label="Field of type TIMS" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value" Type="Edm.Binary" Nullable="false" sap:unicode="false" sap:label="Binary String" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mimetype" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Character 100" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Detail" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="EmpId"/>
+                </Key>
+                <Property Name="EmpId" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Employee Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Fname" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="First Name" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lname" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Last Name" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EmailId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Email Id" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Gender" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Gender" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="EmpDetailTo_File" Relationship="ZEMPLOYEE_DETAILS_SRV.EmpTo_Files_Assoc" FromRole="FromRole_EmpTo_Files_Assoc" ToRole="ToRole_EmpTo_Files_Assoc"/>
+                <NavigationProperty Name="EmpDetailTo_WrkHistory" Relationship="ZEMPLOYEE_DETAILS_SRV.EmpDetailTo_WrkHistory_Assoc" FromRole="FromRole_EmpDetailTo_WrkHistory_Assoc" ToRole="ToRole_EmpDetailTo_WrkHistory_Assoc"/>
+            </EntityType>
+            <EntityType Name="WorkHistory" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="EmpId"/>
+                    <PropertyRef Name="Idx"/>
+                </Key>
+                <Property Name="EmpId" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="INT4" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Idx" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="INT4" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompName" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="30 Characters" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Fdate" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Char20" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Tdate" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Char20" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Designation" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="30 Characters" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Reason" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Character 100" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="EmpDetailTo_WrkHistory_Assoc" sap:content-version="1">
+                <End Type="ZEMPLOYEE_DETAILS_SRV.Detail" Multiplicity="1" Role="FromRole_EmpDetailTo_WrkHistory_Assoc"/>
+                <End Type="ZEMPLOYEE_DETAILS_SRV.WorkHistory" Multiplicity="*" Role="ToRole_EmpDetailTo_WrkHistory_Assoc"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_EmpDetailTo_WrkHistory_Assoc">
+                        <PropertyRef Name="EmpId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_EmpDetailTo_WrkHistory_Assoc">
+                        <PropertyRef Name="EmpId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="EmpTo_Files_Assoc" sap:content-version="1">
+                <End Type="ZEMPLOYEE_DETAILS_SRV.Detail" Multiplicity="1" Role="FromRole_EmpTo_Files_Assoc"/>
+                <End Type="ZEMPLOYEE_DETAILS_SRV.File" Multiplicity="*" Role="ToRole_EmpTo_Files_Assoc"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_EmpTo_Files_Assoc">
+                        <PropertyRef Name="EmpId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_EmpTo_Files_Assoc">
+                        <PropertyRef Name="EmpId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZEMPLOYEE_DETAILS_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="FileSet" EntityType="ZEMPLOYEE_DETAILS_SRV.File" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="DetailSet" EntityType="ZEMPLOYEE_DETAILS_SRV.Detail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WorkHistorySet" EntityType="ZEMPLOYEE_DETAILS_SRV.WorkHistory" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="EmpDetailTo_WrkHistory_AssocSet" Association="ZEMPLOYEE_DETAILS_SRV.EmpDetailTo_WrkHistory_Assoc" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="DetailSet" Role="FromRole_EmpDetailTo_WrkHistory_Assoc"/>
+                    <End EntitySet="WorkHistorySet" Role="ToRole_EmpDetailTo_WrkHistory_Assoc"/>
+                </AssociationSet>
+                <AssociationSet Name="EmpTo_Files_AssocSet" Association="ZEMPLOYEE_DETAILS_SRV.EmpTo_Files_Assoc" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="DetailSet" Role="FromRole_EmpTo_Files_Assoc"/>
+                    <End EntitySet="FileSet" Role="ToRole_EmpTo_Files_Assoc"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZEMPLOYEE_DETAILS_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZEMPLOYEE_DETAILS_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>

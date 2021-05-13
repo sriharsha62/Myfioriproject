@@ -1,0 +1,143 @@
+<mvc:View controllerName="fioriapp.controller.Worklist" class="sapUiSizeCompact" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" >
+	<Page title="Maintain Employee records" >
+		<content>
+			<form:SimpleForm editable="true" title="Create New Employee Record">
+				<core:Title/>
+				<Label required="true" text="{i18n>firstName}" design="Bold"/>
+				<Input id="inpFname" placeholder="{i18n>phfname}" width="200px"/>
+				<Label required="true" text="{i18n>lastName}" design="Bold"/>
+				<Input id="inpLname" placeholder="{i18n>phlname}" width="200px"/>
+				<core:Title/>
+				<Label required="true" text="Email" design="Bold"/>
+				<Input id="inpEmail" placeholder="Input E-mail" width="200px"/>
+				<Label text="Gender" design="Bold"/>
+				<ComboBox id="inpGender" required="true" placeholder="Enter Gender" width="200px">
+					<core:Item key="Male" text="Male"></core:Item>
+					<core:Item key="Female" text="Female"></core:Item>
+				</ComboBox>
+				<Label/>
+				<Button text="Add Employee" icon="sap-icon://add" type="Emphasized" press="addEmp" width="200px"></Button>
+			</form:SimpleForm>
+			<Table id="oTab" items="{path:'/DetailSet'}" >
+				<headerToolbar>
+					<Toolbar>
+						<content>
+							<Title text="Employee List"/>
+						</content>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Label design="Bold" text="Employee Id"></Label>
+					</Column>
+					<Column>
+						<Label design="Bold" text="{i18n>firstName}"></Label>
+					</Column>
+					<Column>
+						<Label design="Bold" text="{i18n>lastName}"></Label>
+					</Column>
+					<Column>
+						<Label design="Bold" text="E-Mail"></Label>
+					</Column>
+					<Column>
+						<Label design="Bold" text="{i18n>gender}"></Label>
+					</Column>
+					<Column>
+						<Label design="Bold" text="Actions"></Label>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem press="handleSelection">
+						<cells>
+							<Text text="{EmpId}"></Text>
+							<Input value="{Fname}" editable="false"></Input>
+							<Input value="{Lname}" editable="false"></Input>
+							<Input value="{EmailId}" editable="false"></Input>
+							<Input value="{Gender}" editable="false"></Input>
+							<HBox>
+								<Button icon="sap-icon://edit" type="Emphasized" press="onEditEmp"/>
+								<Button icon="sap-icon://delete" type="Reject" press="handleDelete"/>
+							</HBox>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<!--<form:SimpleForm editable="true">
+				<form:title>
+					<core:Title text="Employee Details"></core:Title>
+				</form:title>
+				<form:content>
+					<Label required="true" design="Bold" text="First Name"></Label>
+					<Input value="{EmpDetail>/Fname}" placeholder="Please Enter First Name" width="40%"></Input>
+					<Label required="true" design="Bold" text="Last Name"></Label>
+					<Input value="{EmpDetail>/Lname}" placeholder="Please Enter Last Name" width="40%"></Input>
+					<Label required="true" design="Bold" text="Email ID"></Label>
+					<Input value="{EmpDetail>/EmailId}" placeholder="Please Enter Email ID" width="40%"></Input>
+					<Label required="true" design="Bold" text="Gender"></Label>
+					<ComboBox value="{EmpDetail>/Gender}" placeholder="Please Enter Gender" width="40%">
+						<items>
+							<core:Item text="Male"></core:Item>
+							<core:Item text="Female"></core:Item>
+						</items>
+					</ComboBox>
+				</form:content>
+			</form:SimpleForm>-->
+			<Table id="oTable" items="{path:'EmpDetail>/EmpDetailTo_WrkHistory/results'}"  visible="false">
+				<headerToolbar>
+					<Toolbar>
+						<content>
+							<Title text="Work History"/>
+						</content>
+						<ToolbarSpacer/>
+						<Button text="Add New Work History" type="Emphasized" press="handleCreateHistory"></Button>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Label design="Bold" text="Company Name"></Label>
+					</Column>
+					<Column>
+						<Label design="Bold" text="From Date"  ></Label>
+					</Column>
+					<Column>
+						<Label design="Bold" text="To Date"></Label>
+					</Column>
+					<Column>
+						<Label design="Bold" text="Designation"></Label>
+					</Column>
+					<Column>
+						<Label design="Bold" text="Reason"></Label>
+					</Column>
+					<Column>
+						<Label design="Bold" text="Actions"></Label>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{EmpDetail>CompName}"></Text>
+							<Text text="{EmpDetail>Fdate}"></Text>
+							<Text text="{EmpDetail>Tdate}"></Text>
+							<Text text="{EmpDetail>Designation}"></Text>
+							<Text text="{EmpDetail>Reason}"></Text>
+							<HBox>
+								<items>
+									<Button class="sapUiSmallMarginEnd" icon="sap-icon://edit" type="Emphasized" press="handleEdit"></Button>
+									<Button class="sapUiSmallMarginEnd" icon="sap-icon://delete" type="Reject" press="handleDelete"></Button>
+								</items>
+							</HBox>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button text="Update All Details" press="updAll" type="Accept"></Button>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>
